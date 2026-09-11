@@ -1,33 +1,31 @@
-# ⚡ SaaS & E-Commerce Customer Churn & Revenue Intelligence Platform
+# SaaS and E-Commerce Customer Churn and Revenue Intelligence Platform
 
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![SQL Star Schema](https://img.shields.io/badge/Data%20Model-Star%20Schema-green.svg)]()
-[![Power BI](https://img.shields.io/badge/Power%20BI-Executive%20Suite-F2C811.svg)]()
-[![ML Model Recall](https://img.shields.io/badge/ML%20Churn%20Recall-87.5%25-orange.svg)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
-
-> An end-to-end, enterprise-grade Data Analytics & Business Intelligence platform designed to analyze customer churn dynamics, predict revenue risk, calculate cohort retention, and deliver actionable C-Suite growth strategies across **12,500 customer accounts** and **$19M+ in Annual Recurring Revenue (ARR)**.
+A comprehensive Data Analytics and Business Intelligence engineering repository analyzing subscription churn dynamics, calculating customer lifetime value (LTV), predicting cancellation risk, and modeling revenue retention across 12,500 customer accounts and $19.02M in Annual Recurring Revenue (ARR).
 
 ---
 
-## 📌 Executive Summary & Business Problem
+## 1. Problem Statement and Objectives
 
-* **The Problem**: A high-growth B2B SaaS and subscription E-commerce platform observed rising customer churn (47.74% all-time churn) and significant Monthly Recurring Revenue (MRR) fluctuations. Customer Success and Product leadership lacked granular visibility into **which accounts were at immediate risk**, **why customers were leaving**, and **how cohort retention degraded month-over-month**.
-* **The Solution**: Engineered an end-to-end analytics and machine learning pipeline that ingests raw subscription telemetry, transforms it into a dimensional **Star Schema**, executes advanced SQL cohort queries (`LAG`, `LEAD`, `ROW_NUMBER`), trains a predictive ML churn scoring engine (87.5% recall), and delivers a **3-Page Executive Power BI Suite** backed by 26 custom DAX measures.
-* **The Financial Impact**: Identified 4 strategic C-level interventions projected to recover **+$1.18M in ARR** with a **737.5% 1-year ROI**.
+High-growth SaaS and subscription commerce businesses face revenue volatility when customer churn outpaces expansion. This project addresses the operational and financial challenges of subscription churn by delivering:
+
+- **End-to-End ETL Pipeline**: Ingesting and transforming raw multi-table customer telemetry into an optimized Star Schema and analytical SQLite data warehouse.
+- **Advanced SQL Analytics**: Computing month-over-month cohort retention matrices (Month 0 to Month 12) and revenue velocity using CTEs and window functions (`LAG`, `LEAD`, `ROW_NUMBER`).
+- **Machine Learning Risk Scoring**: Training a logistic regression classification model (87.5% recall) to flag accounts at risk before cancellation.
+- **Executive Power BI Dashboard**: Architecting a 3-page reporting suite backed by 26 production DAX measures (MRR, ARR, NRR, LTV, ARPU).
+- **Financial Impact Modeling**: Formulating 4 strategic interventions projected to recover $1.18M ARR with an estimated 737.5% first-year ROI.
 
 ---
 
-## 🏗️ Architecture & Repository Organization
+## 2. Repository Architecture
 
 ```text
 ├── data/
-│   ├── raw/                           # 12,500+ raw records across 4 relational entities
+│   ├── raw/                           # Raw transaction tables (12,500 records)
 │   │   ├── raw_customers.csv
 │   │   ├── raw_subscriptions.csv
 │   │   ├── raw_usage_events.csv
 │   │   └── raw_support_tickets.csv
-│   └── processed/                     # Cleaned dimensional Star Schema tables & SQLite database
+│   └── processed/                     # Cleaned dimensional Star Schema tables
 │       ├── Dim_Customers.csv
 │       ├── Dim_Plans.csv
 │       ├── Dim_Date.csv
@@ -35,34 +33,35 @@
 │       ├── Fact_Subscriptions.csv
 │       ├── Fact_Customer_Health_Score.csv
 │       ├── Fact_Monthly_Cohorts.csv
-│       └── saas_churn_intelligence.db # Ready-to-query relational SQLite database
+│       └── saas_churn_intelligence.db # Relational SQLite warehouse
 ├── src/
-│   ├── generate_data.py               # Deterministic synthetic SaaS enterprise data generator
-│   ├── etl_pipeline.py                # Automated data cleaning, type casting & Star Schema loader
-│   ├── ml_churn_model.py              # ML Churn risk scoring engine (87.5% recall)
+│   ├── generate_data.py               # Deterministic synthetic data generator
+│   ├── etl_pipeline.py                # Data cleaning, type casting, and Star Schema loader
+│   ├── ml_churn_model.py              # ML risk scoring engine and feature importance
 │   └── ai_insights.py                 # Automated C-Suite executive briefing generator
 ├── sql/
-│   ├── 01_schema_ddl.sql              # Relational Star Schema DDL with PK/FK constraints
-│   ├── 02_staging_and_etl.sql         # SQL cleaning, casing standardization & deduplication
-│   ├── 03_cohort_analysis.sql         # Advanced CTEs & Window Functions (Month 0-12 Retention)
-│   └── 04_analytical_views.sql        # High-performance KPI Views (MRR, Churn, High-Risk)
+│   ├── 01_schema_ddl.sql              # Relational DDL with PK/FK constraints and indexes
+│   ├── 02_staging_and_etl.sql         # SQL cleaning, casing standardization, deduplication
+│   ├── 03_cohort_analysis.sql         # Advanced CTEs and Window Functions (M0-M12 Retention)
+│   └── 04_analytical_views.sql        # Production KPI and early warning views
 ├── notebooks/
 │   ├── 01_exploratory_data_analysis.ipynb
 │   ├── 02_cohort_and_retention_deepdive.ipynb
 │   └── 03_hypothesis_and_ab_testing.ipynb
 ├── dashboards/
-│   ├── dax_measures_library.dax       # 26 Production DAX measures (MRR, ARR, NRR, LTV, Churn %)
-│   ├── powerbi_data_model_guide.md    # Star Schema relationship matrix & setup guide
-│   ├── page_wireframes_and_specs.md   # Visual layout specifications for Pages 1, 2, and 3
-│   └── powerbi_theme.json             # Corporate Dark Fintech JSON theme for Power BI
+│   ├── dax_measures_library.dax       # 26 production DAX measures
+│   ├── powerbi_data_model_guide.md    # Star Schema relationship matrix and model setup
+│   ├── page_wireframes_and_specs.md   # UI/UX specifications for Pages 1, 2, and 3
+│   └── powerbi_theme.json             # Corporate executive theme for Power BI Desktop
 ├── docs/
 │   ├── business_case_and_problem_statement.md
 │   ├── executive_recommendations_and_roi.md
-│   └── resume_star_bullet_points.md    # STAR bullet points tailored for resumes & interviews
-├── web_preview/                       # Standalone interactive dashboard web application
+│   └── resume_star_bullet_points.md    # STAR bullet points for resumes and interviews
+├── web_preview/                       # Interactive browser dashboard preview
 │   ├── index.html
 │   ├── style.css
 │   └── app.js
+├── package.json
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -70,20 +69,25 @@
 
 ---
 
-## 📊 3-Page Executive Power BI Dashboard Suite
+## 3. Core Metrics and Baseline Performance
 
-| Page | Title & Target Audience | Core Visualizations & Focus Areas |
+| Metric | Value | Description |
 | :--- | :--- | :--- |
-| **Page 1** | **Executive Overview & Revenue Command Center** *(C-Suite)* | • KPI Cards: Active MRR ($1.58M), ARR ($19.02M), Subscribers (6,532), Avg LTV ($1,714)<br>• 24-Month MRR Growth vs Lost Churn Area Chart<br>• Revenue Share by Plan Tier & Regional Market Distribution |
-| **Page 2** | **Churn Drivers & Early Warning Risk Radar** *(CS & Operations)* | • Churn Reason Pareto Chart (Missing Features, High Price, Support)<br>• Customer Health Score & Usage vs Churn Scatter Matrix<br>• **High-Risk Intervention Table**: Flagged accounts with ARR in jeopardy |
-| **Page 3** | **Cohort Retention & Customer Lifetime Value** *(Product & Growth)* | • **Month-over-Month Retention Heatmap Matrix (M0 to M12)**<br>• Annual vs Monthly Contract Retention Decay Curves (82% vs 38%)<br>• Acquisition Channel LTV Comparison (Referral $2,420 vs Paid $1,180)<br>• **What-If Retention & ARR Recovery Simulator** |
+| **Total Monitored Accounts** | 12,500 | Total customer volume across SMB, Mid-Market, and Enterprise |
+| **Active Subscribers** | 6,532 | Current active paying customer base (52.3% active rate) |
+| **Active MRR** | $1,584,703 | Total current Monthly Recurring Revenue |
+| **Active ARR** | $19,016,437 | Annualized revenue run rate (MRR x 12) |
+| **All-Time Churn Rate** | 47.74% | 5,968 historical cancellations |
+| **Average Customer LTV** | $1,714.00 | Blended lifetime value across all plans and tenures |
+| **Average Customer Tenure** | 8.0 Months | Average retention lifespan before cancellation |
 
 ---
 
-## 🧠 Advanced SQL Analytics Highlight (Cohort Retention Matrix)
+## 4. Advanced SQL Analytics
+
+The following query from `sql/03_cohort_analysis.sql` demonstrates the calculation of month-over-month cohort retention rates from Month 0 to Month 12 using Common Table Expressions (CTEs) and date math:
 
 ```sql
--- Excerpt from sql/03_cohort_analysis.sql: Calculating Month-over-Month Cohort Retention
 WITH customer_cohorts AS (
     SELECT 
         c.customer_id,
@@ -120,48 +124,89 @@ ORDER BY cc.cohort_month, period_number;
 
 ---
 
-## 💡 Top Strategic Recommendations & Financial ROI
+## 5. Machine Learning Churn Scoring Model
 
-| Strategic Initiative | Key Insight / Root Cause | Proposed Action | Projected ARR Impact | Net 1-Yr ROI |
+A classification pipeline was developed in `src/ml_churn_model.py` to evaluate churn hazard across multiple engagement and support indicators:
+
+- **Accuracy**: 78.60%
+- **Recall**: 87.50% (prioritized to minimize missed at-risk accounts)
+- **Precision**: 72.62%
+- **F1-Score**: 79.37%
+
+### Feature Importance Weights:
+1. **Annual Contract**: -0.4724 (Substantially reduces churn risk)
+2. **Monthly Active Days**: -0.3645 (Higher usage reduces churn)
+3. **CSAT Score**: -0.3340 (Higher satisfaction protects retention)
+4. **Escalated Tickets**: +0.2928 (Strongest operational churn driver)
+5. **Starter Plan**: +0.1932 (Higher onboarding drop-off risk)
+
+---
+
+## 6. Power BI Dashboard Specifications
+
+The business intelligence suite is structured into three dedicated report pages:
+
+1. **Page 1: Executive Revenue Command Center**
+   - KPI Cards: Total Active MRR, ARR, Active Subscribers, Churn Rate %, Average LTV.
+   - Area Chart: 24-Month Active MRR Growth vs Lost Churned Revenue.
+   - Donut Chart: Revenue contribution by Plan Tier (Starter, Professional, Enterprise, Custom).
+   - Horizontal Bar: Revenue by Geographic Markets.
+
+2. **Page 2: Churn Drivers and Risk Radar**
+   - Horizontal Clustered Bar: Churn reasons ranked by lost ARR impact.
+   - Feature Importance Bar: Machine learning coefficients ranking churn drivers.
+   - Early Warning Action Table: Active accounts with health score < 45 for proactive Customer Success outreach.
+
+3. **Page 3: Cohort Retention and Lifetime Value**
+   - Heatmap Matrix: Month-over-Month retention decay (Month 0 to Month 12).
+   - Line Chart: Retention decay curves comparing Annual vs Monthly billing cycles.
+   - Bar Chart: Average Customer Lifetime Value (LTV) by Acquisition Channel.
+   - Interactive What-If Parameter: ARR recovery simulator based on targeted churn reduction.
+
+---
+
+## 7. Strategic Recommendations and Financial ROI
+
+| Strategic Initiative | Root Cause Identified | Recommended Action | Projected ARR Impact | Net 1-Year ROI |
 | :--- | :--- | :--- | :--- | :--- |
-| **1. Guided Onboarding Sprint** | 48% drop-off in first 60 days on Starter tier | Automated in-app checklists & milestone check-ins | **+$210,000 ARR** | **600%** |
-| **2. Proactive CS Escalation SLA** | Support escalations increase churn risk by +29.3% | Auto-dispatch Senior CS Leads within 2 hrs of escalation | **+$380,000 ARR** | **633%** |
-| **3. Annual Contract Migration** | Annual contracts retain at 82% vs 38% for monthly | "2 Months Free" upgrade offer on Day 60 of usage | **+$450,000 ARR** | **1,000%** |
-| **4. Marketing Budget Reallocation** | Paid Ads churn at 52% while Referral churns at 28% | Shift 30% of paid ad budget to customer referral rewards | **+$140,000 ARR** | **700%** |
+| **1. Guided Onboarding Sprint** | 48% drop-off in first 60 days on Starter tier | In-app milestone checklists and guided setup | **+$210,000 ARR** | **600%** |
+| **2. CS Escalation SLA** | Escalations increase churn probability by 29.3% | Auto-dispatch Senior CS Leads within 2 hours | **+$380,000 ARR** | **633%** |
+| **3. Annual Contract Migration** | Monthly accounts churn 2.8x faster than annual | "2 Months Free" upgrade incentive at Day 60 | **+$450,000 ARR** | **1,000%** |
+| **4. Marketing Budget Reallocation** | Paid Ads churn at 52% vs Referral at 28% | Shift 30% of paid ad budget to referral incentives | **+$140,000 ARR** | **700%** |
 | **TOTAL** | | | **+$1,180,000 ARR** | **737.5% ROI** |
 
 ---
 
-## 🚀 Quickstart Guide: How to Run
+## 8. Execution Instructions
 
-### 1. Generate Raw Data & Execute ETL Pipeline
+### Prerequisites
+- Python 3.9+
+- Node.js (Optional, for npm dev server)
+
+### Step 1: Generate Data and Run ETL
 ```bash
-# Generate 12,500 synthetic enterprise accounts
 python src/generate_data.py
-
-# Clean data and build Star Schema CSVs + SQLite DB
 python src/etl_pipeline.py
 ```
 
-### 2. Train Machine Learning Churn Engine
+### Step 2: Train Machine Learning Model
 ```bash
 python src/ml_churn_model.py
 ```
 
-### 3. Generate Executive Briefing
+### Step 3: Run AI Executive Briefing
 ```bash
 python src/ai_insights.py
 ```
 
-### 4. Launch Interactive Web Dashboard Preview
-Simply open `web_preview/index.html` in any modern web browser or run:
+### Step 4: Launch Web Dashboard
 ```bash
-# Optional local web server
-python -m http.server 8000 --directory web_preview
+npm run dev
+# Or open web_preview/index.html in any browser
 ```
-Navigate to `http://localhost:8000` to interactively explore the 3-Page Dashboard, Cohort Heatmap, and What-If Simulator!
+Access the application locally at `http://localhost:3000`.
 
 ---
 
-## 📄 Resume & LinkedIn Presentation
-For complete STAR format bullet points, check [`docs/resume_star_bullet_points.md`](docs/resume_star_bullet_points.md).
+## 9. License
+Distributed under the MIT License. See `LICENSE` for more information.
