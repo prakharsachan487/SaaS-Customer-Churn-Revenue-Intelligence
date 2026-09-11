@@ -1,0 +1,168 @@
+// ==============================================================================
+// DAX MEASURES LIBRARY: SaaS & E-Commerce Customer Churn & Revenue Intelligence
+// Production-grade DAX formulas categorized by Business Function
+// ==============================================================================
+
+// ==============================================================================
+// 1. REVENUE & FINANCIAL MEASURES (MRR, ARR, ARPU, LTV)
+// ==============================================================================
+
+// [1] Current Active Monthly Recurring Revenue (MRR)
+Total Active MRR = 
+CALCULATE(
+    SUM(Fact_Subscriptions[monthly_recurring_revenue]),
+    Fact_Subscriptions[subscription_status] = "Active"
+)
+
+// [2] Total Annual Run Rate (ARR)
+Total Active ARR = [Total Active MRR] * 12
+
+// [3] Average Revenue Per User (ARPU)
+ARPU = 
+DIVIDE(
+    [Total Active MRR],
+    [Total Active Subscribers],
+    0
+)
+
+// [4] Total Lifetime Value (LTV)
+Total Customer LTV = 
+SUM(Fact_Subscriptions[customer_lifetime_value_ltv])
+
+// [5] Average Customer Lifetime Value (Avg LTV)
+Avg Customer LTV = 
+AVERAGE(Fact_Subscriptions[customer_lifetime_value_ltv])
+
+// [6] Lost MRR from Churned Customers
+Lost Churn MRR = 
+CALCULATE(
+    SUM(Fact_Subscriptions[monthly_recurring_revenue]),
+    Fact_Subscriptions[subscription_status] = "Churned"
+)
+
+// [7] Lost ARR from Churned Customers
+Lost Churn ARR = [Lost Churn MRR] * 12
+
+
+// ==============================================================================
+// 2. CUSTOMER VOLUME & CHURN RATE MEASURES
+// ==============================================================================
+
+// [8] Total All-Time Customers
+Total Customers = DISTINCTCOUNT(Fact_Subscriptions[customer_id])
+
+// [9] Active Subscribers Count
+Total Active Subscribers = 
+CALCULATE(
+    DISTINCTCOUNT(Fact_Subscriptions[customer_id]),
+    Fact_Subscriptions[subscription_status] = "Active"
+)
+
+// [10] Churned Customers Count
+Total Churned Customers = 
+CALCULATE(
+    DISTINCTCOUNT(Fact_Subscriptions[customer_id]),
+    Fact_Subscriptions[subscription_status] = "Churned"
+)
+
+// [11] Customer Churn Rate %
+Customer Churn Rate % = 
+DIVIDE(
+    [Total Churned Customers],
+    [Total Customers],
+    0
+)
+
+// [12] Customer Retention Rate %
+Customer Retention Rate % = 1 - [Customer Churn Rate %]
+
+// [13] Revenue Churn Rate %
+Revenue Churn Rate % = 
+DIVIDE(
+    [Lost Churn MRR],
+    ([Total Active MRR] + [Lost Churn MRR]),
+    0
+)
+
+// [14] Net Revenue Retention % (NRR)
+Net Revenue Retention NRR % = 
+VAR StartingMRR = CALCULATE(SUM(Fact_Subscriptions[monthly_recurring_revenue]), ALL(Fact_Subscriptions[subscription_status]))
+VAR CurrentMRR = [Total Active MRR]
+RETURN
+DIVIDE(CurrentMRR, StartingMRR, 0)
+
+
+// ==============================================================================
+// 3. TIME INTELLIGENCE & MOM TRENDS
+// ==============================================================================
+
+// [15] Active MRR Previous Month (MoM)
+Active MRR PM = 
+CALCULATE(
+    [Total Active MRR],
+    DATEADD(Dim_Date[full_date], -1, MONTH)
+)
+
+// [16] MRR Month-over-Month Growth ($)
+MRR MoM Growth $ = [Total Active MRR] - [Active MRR PM]
+
+// [17] MRR Month-over-Month Growth (%)
+MRR MoM Growth % = 
+DIVIDE(
+    [MRR MoM Growth $],
+    [Active MRR PM],
+    0
+)
+
+// [18] Active Subscribers Previous Month
+Active Subscribers PM = 
+CALCULATE(
+    [Total Active Subscribers],
+    DATEADD(Dim_Date[full_date], -1, MONTH)
+)
+
+// [19] Net Subscriber Growth (MoM)
+Net Subscriber Growth MoM = [Total Active Subscribers] - [Active Subscribers PM]
+
+
+// ==============================================================================
+// 4. RISK, HEALTH SCORE & INTERVENTION MEASURES
+// ==============================================================================
+
+// [20] Average Customer Health Score
+Avg Health Score = AVERAGE(Fact_Customer_Health_Score[health_score])
+
+// [21] Critical High Risk Accounts Count
+Critical High Risk Accounts = 
+CALCULATE(
+    DISTINCTCOUNT(Fact_Customer_Health_Score[customer_id]),
+    Fact_Customer_Health_Score[risk_segment] = "High Risk (Critical)"
+)
+
+// [22] High Risk ARR at Immediate Jeopardy ($)
+High Risk ARR at Jeopardy = 
+CALCULATE(
+    [Total Active ARR],
+    Fact_Customer_Health_Score[risk_segment] = "High Risk (Critical)"
+)
+
+// [23] Average Customer CSAT Rating
+Avg CSAT Rating = AVERAGE(Fact_Customer_Health_Score[csat_score])
+
+// [24] Average Support Resolution Time (Hours)
+Avg Resolution Time Hours = AVERAGE(Fact_Customer_Health_Score[avg_resolution_time_hrs])
+
+
+// ==============================================================================
+// 5. WHAT-IF RETENTION SIMULATOR MEASURES (PARAMETER CONTROLLED)
+// ==============================================================================
+
+// [25] Simulated Churn Reduction ARR Saved
+// Requires a What-If Parameter: 'Churn Reduction %'[Churn Reduction Value] (e.g. 10%, 15%, 20%)
+Simulated ARR Saved = 
+VAR ChurnReductionPct = SELECTEDVALUE('Churn Reduction %'[Churn Reduction Value], 0.15)
+RETURN
+[Lost Churn ARR] * ChurnReductionPct
+
+// [26] Simulated Net New ARR with Retention Program
+Simulated Net ARR = [Total Active ARR] + [Simulated ARR Saved]

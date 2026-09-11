@@ -1,0 +1,7 @@
+reason_id,churn_reason,reason_category,impact_tier
+REA-101,Business Closed / Downsized,External,Medium Risk
+REA-102,Difficult Onboarding / Low Adoption,Adoption,Medium Risk
+REA-103,High Price / Budget Cuts,Financial,Medium Risk
+REA-104,Missing Core Features,Product,High Risk
+REA-105,Poor Customer Support Experience,Service,High Risk
+REA-106,Switched to Competitor,Competition,Medium Risk

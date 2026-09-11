@@ -1,0 +1,5 @@
+plan_id,plan_name,tier_level,base_monthly_price,target_segment
+PLAN-01,Starter,1,49.0,SMB
+PLAN-02,Professional,2,149.0,Mid-Market
+PLAN-03,Enterprise,3,499.0,Enterprise
+PLAN-04,Custom Enterprise,4,1199.0,Enterprise

@@ -1,0 +1,67 @@
+{
+  "name": "RetentionIQExecutiveLightTheme",
+  "dataColors": [
+    "#3B82F6",
+    "#10B981",
+    "#8B5CF6",
+    "#F59E0B",
+    "#EF4444",
+    "#06B6D4",
+    "#64748B",
+    "#1E40AF"
+  ],
+  "background": "#EDF1F7",
+  "foreground": "#0F172A",
+  "tableAccent": "#F8FAFC",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "color": {
+              "solid": {
+                "color": "#E2E8F0"
+              }
+            },
+            "radius": 16,
+            "show": true
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#0F172A"
+              }
+            },
+            "position": "Outer",
+            "preset": "BottomRight"
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#0F172A"
+              }
+            },
+            "fontSize": 12,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ]
+      }
+    }
+  }
+}

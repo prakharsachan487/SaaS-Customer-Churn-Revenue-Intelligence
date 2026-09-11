@@ -1,0 +1,25 @@
+{
+  "name": "saas-churn-revenue-intelligence-dashboard",
+  "version": "1.0.0",
+  "description": "Enterprise SaaS & E-Commerce Customer Churn & Revenue Intelligence Platform",
+  "main": "web_preview/index.html",
+  "scripts": {
+    "dev": "python -m http.server 3000 --bind 127.0.0.1 --directory web_preview",
+    "start": "python -m http.server 3000 --bind 127.0.0.1 --directory web_preview",
+    "generate-data": "python src/generate_data.py",
+    "etl": "python src/etl_pipeline.py",
+    "train-ml": "python src/ml_churn_model.py",
+    "insights": "python src/ai_insights.py"
+  },
+  "keywords": [
+    "saas",
+    "churn-prediction",
+    "revenue-intelligence",
+    "power-bi",
+    "dax",
+    "sql",
+    "machine-learning"
+  ],
+  "author": "Ayush Sachan",
+  "license": "MIT"
+}
