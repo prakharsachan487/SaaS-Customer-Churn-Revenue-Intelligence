@@ -22,3 +22,7 @@ Thumbs.db
 
 # Power BI temporary files
 *.tmp
+
+# Private Personal Prep (Not tracked in Git/GitHub)
+private_prep/
+*.pdf
