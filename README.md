@@ -56,8 +56,7 @@ High-growth SaaS and subscription commerce businesses face revenue volatility wh
 │   └── powerbi_theme.json             # Corporate executive theme for Power BI Desktop
 ├── docs/
 │   ├── business_case_and_problem_statement.md
-│   ├── executive_recommendations_and_roi.md
-│   └── resume_star_bullet_points.md    # STAR bullet points for resumes and interviews
+│   └── executive_recommendations_and_roi.md
 ├── web_preview/                       # Interactive browser dashboard preview
 │   ├── index.html
 │   ├── style.css
