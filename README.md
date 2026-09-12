@@ -2,6 +2,8 @@
 
 A comprehensive Data Analytics and Business Intelligence engineering repository analyzing subscription churn dynamics, calculating customer lifetime value (LTV), predicting cancellation risk, and modeling revenue retention across 12,500 customer accounts and $19.02M in Annual Recurring Revenue (ARR).
 
+**Live Interactive Dashboard Demo**: [https://prakharsachan487.github.io/SaaS-Customer-Churn-Revenue-Intelligence/](https://prakharsachan487.github.io/SaaS-Customer-Churn-Revenue-Intelligence/)
+
 ---
 
 ## 1. Problem Statement and Objectives
