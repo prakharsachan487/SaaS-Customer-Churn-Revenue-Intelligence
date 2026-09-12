@@ -49,6 +49,7 @@ High-growth SaaS and subscription commerce businesses face revenue volatility wh
 │   ├── 02_cohort_and_retention_deepdive.ipynb
 │   └── 03_hypothesis_and_ab_testing.ipynb
 ├── dashboards/
+│   ├── SaaS_Churn_Revenue_Intelligence.pbix # Complete 3-page Power BI Dashboard file
 │   ├── dax_measures_library.dax       # 26 production DAX measures
 │   ├── powerbi_data_model_guide.md    # Star Schema relationship matrix and model setup
 │   ├── page_wireframes_and_specs.md   # UI/UX specifications for Pages 1, 2, and 3
