@@ -26,3 +26,5 @@ Thumbs.db
 # Private Personal Prep (Not tracked in Git/GitHub)
 private_prep/
 *.pdf
+*.docx
+*.doc
