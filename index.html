@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SaaS & E-Commerce Churn & Revenue Intelligence Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <!-- Chart.js for smooth modern visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- GLASSMORPHIC FLOATING APP CONTAINER -->
+    <div class="dashboard-shell">
+      
+      <!-- LEFT FROSTED GLASS SIDEBAR -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="brand-info">
+            <h2>RetentionIQ</h2>
+            <span>SaaS & E-Commerce BI</span>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <button class="nav-link active" data-page="page1">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Overview</span>
+          </button>
+          <button class="nav-link" data-page="page2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            <span>Churn & Risk</span>
+          </button>
+          <button class="nav-link" data-page="page3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+            <span>Cohorts & LTV</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-meta">
+          <div class="telemetry-box">
+            <div class="telemetry-status">
+              <span class="pulse-dot"></span>
+              <span class="telemetry-label">Live SQL Sync</span>
+            </div>
+            <span class="telemetry-count">12,500 Accounts</span>
+          </div>
+          <div class="csuite-tag">Power BI Enterprise Edition</div>
+        </div>
+      </aside>
+
+      <!-- RIGHT MAIN CONTENT AREA -->
+      <main class="main-panel">
+        
+        <!-- TOP HEADER BAR -->
+        <header class="top-nav">
+          <div class="page-headline">
+            <h1 id="page-title">Executive Dashboard</h1>
+            <p class="sub-headline">Real-time SaaS subscription telemetry & revenue intelligence</p>
+          </div>
+
+          <div class="top-nav-right">
+            <div class="search-pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" placeholder="Search accounts, plans..." />
+            </div>
+
+            <div class="filter-dropdown">
+              <select id="segment-filter">
+                <option value="all">All Segments</option>
+                <option value="SMB">SMB</option>
+                <option value="Mid-Market">Mid-Market</option>
+                <option value="Enterprise">Enterprise</option>
+              </select>
+            </div>
+
+            <div class="icon-btn notification-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <span class="badge-dot"></span>
+            </div>
+
+            <div class="user-profile">
+              <div class="avatar-circle">AS</div>
+              <div class="user-meta">
+                <span class="user-name">Executive</span>
+                <span class="user-role">C-Suite</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ============================================== -->
+        <!-- TAB 1: EXECUTIVE REVENUE & OVERVIEW -->
+        <!-- ============================================== -->
+        <section id="page1" class="tab-page active-tab">
+          <!-- TOP ROW OF 4 LUXURY KPI CARDS WITH SPARKLINES -->
+          <div class="kpi-deck">
+            
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Active MRR</span>
+                <span class="pill-badge badge-green">▲ 14.2%</span>
+              </div>
+              <div class="kpi-main-val" id="kpi-mrr">$1,584,703</div>
+              <div class="sparkline-wrapper">
+                <canvas id="spark-mrr"></canvas>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Active Subscribers</span>
+                <span class="pill-badge badge-blue">▲ 52.3%</span>
+              </div>
+              <div class="kpi-main-val" id="kpi-subs">6,532</div>
+              <div class="sparkline-wrapper">
+                <canvas id="spark-subs"></canvas>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Churn Rate</span>
+                <span class="pill-badge badge-red">▼ 47.74%</span>
+              </div>
+              <div class="kpi-main-val" id="kpi-churn">47.74%</div>
+              <div class="sparkline-wrapper">
+                <canvas id="spark-churn"></canvas>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Average LTV</span>
+                <span class="pill-badge badge-green">▲ $1,714</span>
+              </div>
+              <div class="kpi-main-val" id="kpi-ltv">$1,714.00</div>
+              <div class="sparkline-wrapper">
+                <canvas id="spark-ltv"></canvas>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- HERO REVENUE GROWTH CHART (WAVY GRADIENT CURVE) -->
+          <div class="card hero-chart-card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Revenue Growth Over Time</h3>
+                <span class="card-subtitle">Monthly Recurring Revenue (MRR) expansion vs Churned revenue baseline</span>
+              </div>
+              <div class="card-actions">
+                <span class="time-filter-pill">24 Months Trajectory</span>
+              </div>
+            </div>
+            <div class="chart-box">
+              <canvas id="chart-hero-revenue"></canvas>
+            </div>
+          </div>
+
+          <!-- BOTTOM ROW: RECENT ACTIVITY TABLE & PLAN DISTRIBUTION -->
+          <div class="grid-split">
+            <!-- RECENT HIGH VALUE SUBSCRIPTIONS -->
+            <div class="card flex-grow-2">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Recent Customer Portfolio Activity</h3>
+                  <span class="card-subtitle">Live subscription health and MRR commitment</span>
+                </div>
+                <span class="badge-filter">All Accounts</span>
+              </div>
+              <div class="table-container">
+                <table class="clean-table">
+                  <thead>
+                    <tr>
+                      <th>Customer ID</th>
+                      <th>Segment</th>
+                      <th>Plan Tier</th>
+                      <th>Status</th>
+                      <th>MRR ($)</th>
+                      <th>Health Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>CUST-104910</strong></td>
+                      <td>Enterprise</td>
+                      <td>Custom Enterprise</td>
+                      <td><span class="status-pill status-active">Active</span></td>
+                      <td>$1,019.15</td>
+                      <td>
+                        <div class="progress-cell">
+                          <div class="progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
+                          <span>88%</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>CUST-108221</strong></td>
+                      <td>Mid-Market</td>
+                      <td>Enterprise</td>
+                      <td><span class="status-pill status-active">Active</span></td>
+                      <td>$424.15</td>
+                      <td>
+                        <div class="progress-cell">
+                          <div class="progress-bar"><div class="progress-fill" style="width: 76%;"></div></div>
+                          <span>76%</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>CUST-110339</strong></td>
+                      <td>Enterprise</td>
+                      <td>Enterprise</td>
+                      <td><span class="status-pill status-warning">At Risk</span></td>
+                      <td>$424.15</td>
+                      <td>
+                        <div class="progress-cell">
+                          <div class="progress-bar"><div class="progress-fill progress-fill-warning" style="width: 40%;"></div></div>
+                          <span>40%</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>CUST-100022</strong></td>
+                      <td>SMB</td>
+                      <td>Professional</td>
+                      <td><span class="status-pill status-critical">Critical</span></td>
+                      <td>$149.00</td>
+                      <td>
+                        <div class="progress-cell">
+                          <div class="progress-bar"><div class="progress-fill progress-fill-danger" style="width: 18%;"></div></div>
+                          <span>18%</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- PLAN TIER DONUT -->
+            <div class="card flex-grow-1">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">MRR by Plan Tier</h3>
+                  <span class="card-subtitle">Revenue distribution</span>
+                </div>
+              </div>
+              <div class="donut-chart-box">
+                <canvas id="chart-plan-donut"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: CHURN & RISK RADAR -->
+        <!-- ============================================== -->
+        <section id="page2" class="tab-page">
+          <div class="kpi-deck">
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Critical At-Risk Accounts</span>
+                <span class="pill-badge badge-red">Immediate CS SLA</span>
+              </div>
+              <div class="kpi-main-val">1,899</div>
+              <span class="kpi-subtext">Health Score &lt; 45.0</span>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">ARR at Immediate Risk</span>
+                <span class="pill-badge badge-red">In Jeopardy</span>
+              </div>
+              <div class="kpi-main-val">$1,993,215</div>
+              <span class="kpi-subtext">Active jeopardy pool</span>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">ML Churn Recall</span>
+                <span class="pill-badge badge-green">87.5% High Catch</span>
+              </div>
+              <div class="kpi-main-val">87.50%</div>
+              <span class="kpi-subtext">Trained Predictive Model</span>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label">Avg Health Score</span>
+                <span class="pill-badge badge-blue">Fleet Benchmark</span>
+              </div>
+              <div class="kpi-main-val">58.4 / 100</div>
+              <span class="kpi-subtext">Weighted telemetry index</span>
+            </div>
+          </div>
+
+          <div class="grid-split">
+            <div class="card flex-grow-1">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Top Churn Drivers (Lost ARR Impact)</h3>
+                  <span class="card-subtitle">Quantified dollar revenue impact by primary churn reason</span>
+                </div>
+              </div>
+              <div class="chart-box">
+                <canvas id="chart-churn-reasons"></canvas>
+              </div>
+            </div>
+
+            <div class="card flex-grow-1">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">ML Feature Importance (Churn Drivers)</h3>
+                  <span class="card-subtitle">Mathematical weight factors predicting cancellation hazard</span>
+                </div>
+              </div>
+              <div class="chart-box">
+                <canvas id="chart-ml-importance"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- AT-RISK ACCOUNTS TABLE -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">🚨 High-Value Accounts at Critical Churn Risk (CS Outreach Queue)</h3>
+                <span class="card-subtitle">Real-time flagged accounts requiring immediate Customer Success intervention</span>
+              </div>
+              <span class="badge-filter">Top Priority</span>
+            </div>
+            <div class="table-container">
+              <table class="clean-table" id="table-critical-risk">
+                <thead>
+                  <tr>
+                    <th>Customer ID</th>
+                    <th>Segment</th>
+                    <th>Plan Tier</th>
+                    <th>Billing</th>
+                    <th>Annual ARR</th>
+                    <th>Health Score</th>
+                    <th>Active Days</th>
+                    <th>Support Tickets</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="risk-tbody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: COHORT RETENTION & LTV -->
+        <!-- ============================================== -->
+        <section id="page3" class="tab-page">
+          <!-- WHAT-IF ARR SIMULATOR -->
+          <div class="simulator-card">
+            <div class="simulator-left">
+              <div class="sim-icon">💡</div>
+              <div>
+                <h3>What-If Retention Strategy & ARR Recovery Calculator</h3>
+                <p>Simulate projected ARR saved by executing proactive retention workflows (Onboarding sprint, CS SLA, Annual upgrade)</p>
+              </div>
+            </div>
+            <div class="simulator-right">
+              <div class="slider-wrapper">
+                <div class="slider-header">
+                  <span>Target Churn Reduction Rate:</span>
+                  <strong id="sim-slider-label">15%</strong>
+                </div>
+                <input type="range" id="retention-slider" min="5" max="40" step="5" value="15" />
+              </div>
+              <div class="sim-metric-badge">
+                <span>Recovered ARR:</span>
+                <strong id="sim-recovered-arr">$298,982</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- COHORT HEATMAP MATRIX -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Month-over-Month Customer Cohort Retention Matrix (Month 0 to Month 12)</h3>
+                <span class="card-subtitle">Tracking customer retention decay curves across signup cohorts</span>
+              </div>
+            </div>
+            <div class="cohort-scroll-container">
+              <table class="cohort-matrix-table" id="cohort-matrix">
+                <!-- Dynamically populated -->
+              </table>
+            </div>
+          </div>
+
+          <div class="grid-split">
+            <div class="card flex-grow-1">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Retention Curves: Annual vs Monthly Contracts</h3>
+                  <span class="card-subtitle">Annual contracts sustain 2.8x higher long-term retention</span>
+                </div>
+              </div>
+              <div class="chart-box">
+                <canvas id="chart-contract-curves"></canvas>
+              </div>
+            </div>
+
+            <div class="card flex-grow-1">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Average Customer Lifetime Value (LTV) by Channel</h3>
+                  <span class="card-subtitle">Referral & Organic Search generate 2.4x higher LTV</span>
+                </div>
+              </div>
+              <div class="chart-box">
+                <canvas id="chart-channel-ltv"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
